@@ -2,17 +2,17 @@ import React from "react";
 import { Logo } from "../icons";
 import SearchBar from "../SearchBar";
 import Button from "../Button";
+import NeedHelp from "../NeedHelp";
 import { Plus } from "../icons";
 import CustomNavLink from "../CustomNavLink";
 import { navLinkData } from "../data";
-import { Overview, Campaign } from "../icons";
 
 const SideNav = () => {
     return (
         <nav className="px-8 py-6 overflow-y-auto bg-[#F0F4F4] h-full">
             <Logo />
 
-            <div className="mt-14 space-y-10">
+            <div className="my-10 space-y-8">
                 <SearchBar variant="mobile" />
                 <Button
                     variant="solid"
@@ -34,9 +34,8 @@ const SideNav = () => {
                     ))}
                 </div>
             </div>
-            {/* <Button variant="outline" size="" colorScheme="red">New Campaign</Button>
-            <Button variant="solid" size="" colorScheme="red">New Campaign</Button>
-            <Button variant="outline" size="" colorScheme="black">New</Button> */}
+
+            <NeedHelp />
         </nav>
     );
 };
