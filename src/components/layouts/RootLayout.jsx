@@ -6,14 +6,14 @@ import TopNav from "./TopNav";
 const RootLayout = () => {
     return (
         <div className="h-screen flex relative md:overflow-hidden">
-            <aside className="hidden flex-none md:block w-[292px] bg-blue-300">
+            <aside className="hidden flex-none md:block w-[292px]">
                 <SideNav />
             </aside>
 
             <main className="flex flex-col grow overflow-y-auto">
                 <TopNav />
 
-                <section className="grow px-[85px] py-8 bg-green-200">
+                <section className="grow px-4 sm:px-6 lg:px-[85px] py-8">
                     <Outlet />
                 </section>
             </main>
