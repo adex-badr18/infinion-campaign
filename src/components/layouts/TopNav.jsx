@@ -14,7 +14,7 @@ const TopNav = () => {
                 onClick={() => setIsSideNavOpen(true)}
             />
 
-            <SearchBar />
+            <SearchBar variant="desktop" />
 
             <div className="flex items-center gap-5">
                 <Bell />
