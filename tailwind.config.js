@@ -13,6 +13,10 @@ export default {
                 primary: "#247B7B",
                 maroon: "#990000"
             },
+            fontFamily: {
+                "work-sans": ["Work Sans", "sans-serif"],
+                "general-sans": ["General Sans", "sans-serif"],
+            },
             // borderRadius: {
             //     ""
             // }
