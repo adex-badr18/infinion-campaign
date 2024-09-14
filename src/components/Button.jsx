@@ -3,9 +3,9 @@ import React from "react";
 const Button = ({ children, variant, icon, size, colorScheme, ...rest }) => {
     return (
         <button
-            className={`flex items-center justify-center gap-[10px] text-sm font-semibold py-[10px] px-4 rounded-[4px] min-w-24 border 
+            className={`flex items-center justify-center gap-[10px] text-sm font-semibold py-[10px] px-4 rounded-[4px] w-full min-w-24 border 
             ${size === "lg" && "w-[196px]"} 
-            max-w-[196px] 
+            md:max-w-[196px] 
             ${(variant === "solid" && colorScheme === "primary") && "bg-primary border-primary text-white hover:bg-teal-600"} 
             ${(variant === "solid" && colorScheme === "teal") && "bg-[#F0F4F4] border-[#F0F4F4] text-primary hover:bg-teal-50"} 
             ${(variant === "outline" && colorScheme === "primary") && "bg-ptransparent border-primary text-primary hover:"} 
@@ -16,6 +16,7 @@ const Button = ({ children, variant, icon, size, colorScheme, ...rest }) => {
             ${variant === "outline" && ""}
             
             `}
+            {...rest}
         >
             {icon && icon}
             {children}

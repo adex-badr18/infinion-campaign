@@ -11,7 +11,8 @@ export default {
             },
             colors: {
                 primary: "#247B7B",
-                maroon: "#990000"
+                maroon: "#990000",
+                redd: "#EF2D2B"
             },
             fontFamily: {
                 "work-sans": ["Work Sans", "sans-serif"],

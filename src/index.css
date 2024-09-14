@@ -9,3 +9,7 @@
 body {
     font-family: "Nunito Sans", "sans-serif";
 }
+
+.form-label {
+    @apply text-sm font-medium text-[#666666]
+}
