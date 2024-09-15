@@ -1,7 +1,7 @@
 import React from "react";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
-import DatePicker from "../../components/DatePicker";
+import DateRangePicker from "../../components/DateRangePicker";
 import { Plus, Download, Calendar } from "../../components/icons";
 import emptySearchImg from "../../assets/empty-search.png";
 
@@ -12,8 +12,8 @@ const Overview = () => {
                 <PageTitle title="Overview" size="lg" />
 
                 <div className="flex items-center gap-2 md:gap-4">
-                    <div className="hidden lg:block">
-                        <DatePicker />
+                    <div className="hidden lg:block flex-none">
+                        <DateRangePicker />
                     </div>
 
                     <div className="flex items-center px-2 sm:px-4 py-[10px] border rounded cursor-pointer lg:hidden">
@@ -22,7 +22,7 @@ const Overview = () => {
 
                     <Button
                         variant="solid"
-                        size="sm"
+                        classes="grow"
                         icon={<Download />}
                         colorScheme="teal"
                     >

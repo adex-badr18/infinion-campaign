@@ -3,15 +3,21 @@ import { Mark } from "../../../components/icons";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 
-const CampaignResponse = (setIsModalOpen) => {
+const CampaignResponse = ({ message, setIsModalOpen }) => {
     const navigate = useNavigate();
 
+    const gotoCampaignList = () => {
+        setIsModalOpen(false);
+        navigate("/campaigns");
+    }
+
     return (
-        <div className="bg-white flex flex-col items-center gap-12">
+        <div className="flex flex-col items-center gap-12 w-full max-w-[229px] mx-auto">
             <Mark />
 
             <p className="text-sm font-medium text-[#666666]">
-                Campaign Successfully Created!
+                {message}
+                {/* Campaign Successfully Created! */}
             </p>
 
             <Button
@@ -19,7 +25,8 @@ const CampaignResponse = (setIsModalOpen) => {
                 size="wide"
                 colorScheme="primary"
                 classes="font-syne"
-                onClick={() => navigate("/campaigns")}
+                onClick={gotoCampaignList}
+                // onClick={() => navigate("/campaigns")}
             >
                 Go Back to campaign list
             </Button>

@@ -1,9 +1,9 @@
 import React from "react";
 import { Calendar, ChevronDown } from "./icons";
 
-const DatePicker = () => {
+const DateRangePicker = () => {
     return (
-        <div className="flex items-center px-2 py-[10px] border rounded cursor-pointer">
+        <div className="flex items-center px-2 py-[11px] border rounded cursor-pointer">
             <div className="flex items-center gap-2 pr-2 border-r border-[#ECECEC]">
                 <Calendar />
                 <span className="text-[12px] text-[#333333]">Date Range</span>
@@ -17,4 +17,4 @@ const DatePicker = () => {
     );
 };
 
-export default DatePicker;
+export default DateRangePicker;

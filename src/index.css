@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.cdnfonts.com/css/general-sans');
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.cdnfonts.com/css/general-sans");
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,5 +12,13 @@ body {
 }
 
 .form-label {
-    @apply text-sm font-medium text-[#666666]
+    @apply text-sm font-medium text-[#666666];
+}
+
+.table-data {
+    @apply p-4 text-sm font-medium text-[#666666] whitespace-nowrap dark:text-white;
+}
+
+.th {
+    @apply py-3 px-6 text-sm font-bold whitespace-nowrap  text-left text-[#455454] font-nunito capitalize dark:text-gray-400;
 }

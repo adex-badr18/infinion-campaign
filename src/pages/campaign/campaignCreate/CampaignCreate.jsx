@@ -82,9 +82,10 @@ const CampaignCreate = () => {
             <Modal isOpen={isModalOpen}>
                 <div className="overflow-y-auto w-full max-w-[550px] py-14 rounded-lg shadow-md bg-white z-50">
                     <div className="w-full">
-                        {/* <CampaignResponse goToCampaigns={goToCampaigns} /> */}
+                        {/* <CampaignResponse message={`Campaign Successfully Created!`} /> */}
                         <ConfirmCampaignDelete
                             setIsModalOpen={setIsModalOpen}
+                            campaign={`Campaign`}
                         />
                     </div>
                 </div>
