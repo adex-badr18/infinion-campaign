@@ -48,7 +48,7 @@ const TagsInput = ({ tags, setTags, campaignData, setCampaignData }) => {
             {tags.map((tag, index) => (
                 <div
                     key={index}
-                    className="flex items-center gap-2 bg-primary text-white rounded px-3 py-1"
+                    className="flex items-center gap-2 bg-primary text-white rounded px-3 py-1 cursor-pointer"
                     onClick={() => removeTag(index)}
                 >
                     <span>{tag}</span>
