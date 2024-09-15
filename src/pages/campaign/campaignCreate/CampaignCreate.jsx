@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import Button from "../../../components/Button";
 import PageTitle from "../../../components/PageTitle";
 import TagsInput from "../../../components/TagsInput";
+import Modal from "../../../components/Modal";
+import CampaignResponse from "../components/CampaignResponse";
 import Select from "../../../components/Select";
+
+import { useNavigate } from "react-router-dom";
+import ConfirmCampaignDelete from "../components/ConfirmCampaignDelete";
 
 const CampaignCreate = () => {
     const [tags, setTags] = useState([]);
     const [enableDailyDigest, setEnableDailyDigest] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [campaignData, setCampaignData] = useState({
         campaignName: "",
         campaignDescription: "",
@@ -16,6 +22,7 @@ const CampaignCreate = () => {
         linkedKeywords: tags,
         dailyDigest: "",
     });
+    const navigate = useNavigate();
 
     const handleFormChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -38,10 +45,25 @@ const CampaignCreate = () => {
         }));
     };
 
+    const goToCampaigns = () => {
+        setIsModalOpen(false);
+        navigate("/campaigns");
+    };
+
     const submit = (e) => {
         e.preventDefault();
 
         console.log(campaignData);
+
+        setIsModalOpen(true);
+    };
+
+    const cancel = () => {
+        e.preventDefault();
+
+        console.log(campaignData);
+
+        setIsModalOpen(true);
     };
 
     return (
@@ -188,7 +210,12 @@ const CampaignCreate = () => {
                 )}
 
                 <div className="flex flex-col sm:flex-row gap-6 mt-6">
-                    <Button size="lg" variant="outline" colorScheme="primary">
+                    <Button
+                        size="lg"
+                        variant="outline"
+                        colorScheme="primary"
+                        onClick={cancel}
+                    >
                         Cancel
                     </Button>
                     <Button
@@ -201,6 +228,15 @@ const CampaignCreate = () => {
                     </Button>
                 </div>
             </form>
+
+            <Modal isOpen={isModalOpen}>
+                <div className="overflow-y-auto w-full max-w-[550px] py-14 rounded-lg shadow-md bg-white z-50">
+                    <div className="w-full">
+                        {/* <CampaignResponse goToCampaigns={goToCampaigns} /> */}
+                        <ConfirmCampaignDelete setIsModalOpen={setIsModalOpen} />
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };

@@ -15,8 +15,10 @@ export default {
                 redd: "#EF2D2B"
             },
             fontFamily: {
+                "nunito": ["Nunito Sans", "sans-serif"],
                 "work-sans": ["Work Sans", "sans-serif"],
                 "general-sans": ["General Sans", "sans-serif"],
+                "syne": ["Syne", "sans-serif"]
             },
             // borderRadius: {
             //     ""

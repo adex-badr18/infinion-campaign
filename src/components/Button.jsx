@@ -1,11 +1,11 @@
 import React from "react";
 
-const Button = ({ children, variant, icon, size, colorScheme, ...rest }) => {
+const Button = ({ children, variant, icon, size, classes, colorScheme, ...rest }) => {
     return (
         <button
-            className={`flex items-center justify-center gap-[10px] text-sm font-semibold py-[10px] px-4 rounded-[4px] w-full min-w-24 border 
-            ${size === "lg" && "w-[196px]"} 
-            md:max-w-[196px] 
+            className={`flex items-center justify-center gap-[10px] text-sm font-semibold py-[10px] px-4 rounded-[4px] w-full min-w-24 border text-nowrap 
+            ${size === "lg" && "max-w-[196px]"} 
+            ${size === "wide" && "w-[229px]"} 
             ${(variant === "solid" && colorScheme === "primary") && "bg-primary border-primary text-white hover:bg-teal-600"} 
             ${(variant === "solid" && colorScheme === "teal") && "bg-[#F0F4F4] border-[#F0F4F4] text-primary hover:bg-teal-50"} 
             ${(variant === "outline" && colorScheme === "primary") && "bg-ptransparent border-primary text-primary hover:"} 
@@ -14,7 +14,7 @@ const Button = ({ children, variant, icon, size, colorScheme, ...rest }) => {
             ${(variant === "solid" && colorScheme === "black") && "bg-black border-black text-white hover:"} 
             ${(variant === "outline" && colorScheme === "black") && "bg-transparent border-black text-black hover:"} 
             ${variant === "outline" && ""}
-            
+            ${classes}
             `}
             {...rest}
         >

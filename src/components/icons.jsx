@@ -254,22 +254,27 @@ export const ChevronDown = ({ ...rest }) => {
     );
 };
 
-// export const DropdownArrow = ({ ...rest }) => {
-//     return (
-//         <svg
-//             width="10"
-//             height="7"
-//             viewBox="0 0 10 7"
-//             fill="none"
-//             xmlns="http://www.w3.org/2000/svg"
-//         >
-//             <path
-//                 d="M1.175 0.650391L5 4.47539L8.825 0.650391L10 1.83372L5 6.83372L0 1.83372L1.175 0.650391Z"
-//                 fill="#666666"
-//             />
-//         </svg>
-//     );
-// };
+export const Mark = ({ ...rest }) => {
+    return (
+        <svg
+            width="90"
+            height="90"
+            viewBox="0 0 90 90"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...rest}
+        >
+            <rect width="90" height="90" rx="45" fill="#247B7B" />
+            <path
+                d="M28.5938 47.3438L39.5312 58.2812L61.4062 34.8438"
+                stroke="white"
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
 
 export const HorizontalDivider = ({ ...rest }) => {
     return (
