@@ -20,8 +20,6 @@ const Table = ({ tableData, cols }) => {
     const [columnFilters, setColumnFilters] = useState([]);
     const [globalFilter, setGlobalFilter] = useState("");
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    // const [activeLength, setActiveLength] = useState();
-    // const [inactiveLength, setInactiveLength] = useState();
 
     const columnHelper = createColumnHelper();
     const columns = cols.map((col) => {
@@ -117,9 +115,6 @@ const Table = ({ tableData, cols }) => {
                 (campaign) => campaign.getValue("campaignStatus") === "Inactive"
             ).length;
     }, [table.getFilteredRowModel().rows]);
-
-    console.log(activeRowsCount)
-    console.log(inactiveRowsCount)
 
     return (
         <div className="flex flex-col gap-6 w-full">

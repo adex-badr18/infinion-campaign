@@ -8,7 +8,7 @@ const Pagination = ({ table, tableData }) => {
 
     // Calculate the range of pages to display
     const startPage = Math.max(1, currentPage - 2);
-    const endPage = Math.min(pageCount, currentPage + 2);
+    const endPage = Math.min(pageCount, currentPage + 5);
 
     // Get an array of page numbers to display
     const pages = [];
@@ -75,9 +75,9 @@ const Pagination = ({ table, tableData }) => {
 
                     {pages.map((page) => (
                         <button
-                            className={`flex justify-center items-center w-8 h-8 rounded-full ${
+                            className={`flex justify-center items-center  ${
                                 currentPage === page
-                                    ? "bg-primary text-white"
+                                    ? "bg-primary text-white w-8 h-8 rounded-full"
                                     : "text-[#666666] bg-transparent"
                             }`}
                             key={page}

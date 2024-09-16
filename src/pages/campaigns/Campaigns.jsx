@@ -1,7 +1,25 @@
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import PageTitle from "../../components/PageTitle";
 import Table from "../../components/Table";
-import { campaignsData } from "../../components/data";
+import FetchError from "../../components/FetchError";
+import { getCampaigns } from "./api";
+import { ISOTodate } from "../../utils/date";
+
+export const loader = async () => {
+    const campaignsResponse = await getCampaigns();
+
+    if (campaignsResponse.status === 200) {
+        const formattedDataDates = campaignsResponse.map((dataItem) => ({
+            ...dataItem,
+            startDate: ISOTodate(dataItem.startDate),
+            endDate: ISOTodate(dataItem.endDate),
+        }));
+        return formattedDataDates;
+    }
+
+    return campaignsResponse;
+};
 
 const Campaigns = () => {
     const campaignColumns = [
@@ -12,11 +30,15 @@ const Campaigns = () => {
         { id: "actions", header: "Actions" },
     ];
 
-    return (
+    const data = useLoaderData();
+
+    return data.status ? (
+        <FetchError error={data} />
+    ) : (
         <div className="">
             <div className="w-full space-y-4">
                 <PageTitle size="sm" title="All Campaigns" />
-                <Table tableData={campaignsData} cols={campaignColumns} />
+                <Table tableData={data} cols={campaignColumns} />
             </div>
         </div>
     );
