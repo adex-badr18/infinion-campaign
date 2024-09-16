@@ -105,8 +105,8 @@ const CampaignInfo = ({ campaignData, tags, cancelHandler }) => {
                         id="dailyDigest"
                         className={`w-full py-2 bg-white text-gray-700 focus:outline-none `}
                     >
-                        <option value={"Monthly"}>
-                            {campaignsData.dailyDigest}
+                        <option value={campaignData.dailyDigest}>
+                            {campaignData.dailyDigest}
                         </option>
                     </select>
                 </div>
