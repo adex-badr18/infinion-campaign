@@ -19,6 +19,7 @@ export const loader = async ({ params }) => {
     if (!campaignResponse.status) {
         const formattedDataDates = {
             ...campaignResponse,
+            id: params.id,
             startDate: ISOTodate(campaignResponse.startDate),
             endDate: ISOTodate(campaignResponse.endDate),
         };

@@ -8,7 +8,7 @@ const Pagination = ({ table, tableData }) => {
 
     // Calculate the range of pages to display
     const startPage = Math.max(1, currentPage - 2);
-    const endPage = Math.min(pageCount, currentPage + 5);
+    const endPage = Math.min(pageCount, currentPage + 3);
 
     // Get an array of page numbers to display
     const pages = [];
@@ -17,7 +17,7 @@ const Pagination = ({ table, tableData }) => {
     }
 
     return (
-        <div className="mt-4 flex flex-col md:flex-row md:items-center justify-between gap-4 px-6 pb-6">
+        <div className="mt-4 flex flex-col lg:flex-row md:items-center justify-between gap-4 px-6 pb-6">
             {/* <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
                 <span className="font-medium text-sm text-custom-green">
                     {`Page ${
@@ -104,7 +104,7 @@ const Pagination = ({ table, tableData }) => {
             </div>
 
             <div className="">
-                <span className="text-sm font-medium">
+                <span className="text-sm font-medium text-nowrap">
                     {`Showing ${table.getRowModel().rows.length} of ${table.getFilteredRowModel().rows.length} results`}
                 </span>
             </div>
