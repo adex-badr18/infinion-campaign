@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TagClose } from "./icons";
 
 const TagsInput = ({
@@ -9,6 +9,13 @@ const TagsInput = ({
     isEditable,
 }) => {
     const [inputValue, setInputValue] = useState("");
+
+    useEffect(() => {
+        setCampaignData(prev => ({
+            ...prev,
+            linkedKeywords: [...tags],
+        }));
+    }, [tags]);
 
     // Handle input changes
     const handleInputChange = (e) => {
@@ -25,20 +32,6 @@ const TagsInput = ({
             if (inputValue.trim() !== "") {
                 setTags([...tags, inputValue.trim()]);
                 setInputValue("");
-            }
-        }
-    };
-
-    // Update new tags when Enter is pressed
-    const handleKeyUp = (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-
-            if (tags.length > campaignData.linkedKeywords.length) {
-                setCampaignData({
-                    ...campaignData,
-                    linkedKeywords: [...tags],
-                });
             }
         }
     };
@@ -73,7 +66,6 @@ const TagsInput = ({
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
-                    onKeyUp={handleKeyUp}
                     placeholder={
                         tags.length === 0
                             ? "To add keywords, type your keyword and press enter"

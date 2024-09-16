@@ -32,8 +32,9 @@ export const loader = async ({ params }) => {
 const CampaignView = () => {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const campaignData = useLoaderData();
+    const data = useLoaderData();
+    const [campaignData, setCampaignData] = useState(data.status ? {} : data)
+    const [tags] = useState(data.status ? [] : data.linkedKeywords)
 
     const stopCampaign = () => {
         setIsModalOpen(true);
@@ -66,7 +67,8 @@ const CampaignView = () => {
 
                 <CampaignInfo
                     campaignData={campaignData}
-                    tags={campaignData.linkedKeywords}
+                    setCampaignData={setCampaignData}
+                    tags={tags}
                     cancelHandler={stopCampaign}
                 />
             </div>

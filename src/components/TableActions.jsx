@@ -3,6 +3,7 @@ import { Delete, Edit, Preview } from "./icons";
 import Modal from "./Modal";
 import ConfirmCampaignDelete from "../pages/campaign/components/ConfirmCampaignDelete";
 import { useNavigate } from "react-router-dom";
+import { campaignsData } from "./data";
 
 const TableActions = ({ row }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +22,10 @@ const TableActions = ({ row }) => {
         <div className="flex items-center gap-4 md:gap-6">
             <Preview className="cursor-pointer" onClick={preview} />
             <Edit className="cursor-pointer" onClick={edit} />
-            <Delete className="cursor-pointer" onClick={() => setIsModalOpen(true)} />
+            <Delete
+                className="cursor-pointer"
+                onClick={() => setIsModalOpen(true)}
+            />
 
             <Modal isOpen={isModalOpen}>
                 <div className="overflow-y-auto w-full max-w-[550px] py-14 rounded-lg shadow-md bg-white z-50">

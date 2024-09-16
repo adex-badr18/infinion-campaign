@@ -6,7 +6,7 @@ export const formatDateToDDMMYYYY = (date) => {
 
 // Function to format date from DD-MM-YYYY to YYYY-MM-DD
 export const formatDateToYYYYMMDD = (date) => {
-    const [day, month, year] = date.split("-");
+    const [day, month, year] = date.split("/");
     return `${year}-${month}-${day}`;
 };
 

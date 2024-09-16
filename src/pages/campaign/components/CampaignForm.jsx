@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import TagsInput from "../../../components/TagsInput";
+import { updateCampaign } from "../api";
 
 const CampaignForm = ({
     campaignData,
@@ -14,8 +15,46 @@ const CampaignForm = ({
     submitHandler,
     cancelHandler,
     formIntent,
+    setMessage,
+    setIsModalOpen,
 }) => {
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    console.log(campaignData)
+
+    const updateHandler = async (e) => {
+        e.preventDefault();
+
+        setIsSubmitting(true);
+        setMessage("");
+
+        const data = {
+            id: campaignData.id,
+            campaignName: campaignData.campaignName,
+            campaignDescription: campaignData.campaignDescription,
+            startDate: campaignData.startDate,
+            endDate: campaignData.endDate,
+            digestCampaign:
+                campaignData.digestCampaign === "Yes" ? true : false,
+            linkedKeywords: campaignData.linkedKeywords,
+            dailyDigest: campaignData.dailyDigest,
+        };
+
+        // console.log(data);
+        const update = await updateCampaign(campaignData.id, data);
+
+        if (update.success) {
+            setIsSubmitting(false);
+            setMessage("Campaign Successfully Updated!");
+            setIsModalOpen(true);
+        }
+
+        if (update.message) {
+            setIsSubmitting(false);
+            setMessage("Failed to update campaign!");
+        }
+    };
 
     return (
         <form
@@ -137,21 +176,21 @@ const CampaignForm = ({
 
             {formIntent === "update" && (
                 <div className="space-y-1">
-                    <label htmlFor="dailyDigest" className="form-label block">
+                    <label htmlFor="digestCampaign" className="form-label block">
                         Want to receive daily digest about the campaign?
                     </label>
 
                     <div className="w-full px-2 border border-gray-300 rounded-md">
                         <select
-                            id="dailyDigest"
-                            name="dailyDigest"
+                            id="digestCampaign"
+                            name="digestCampaign"
                             className={`w-full py-2 bg-white text-gray-700 focus:outline-none `}
                             value={campaignData.digestCampaign}
                             onChange={handleFormChange}
                         >
                             <option value="">Select</option>
-                            <option value={true}>Yes</option>
-                            <option value={false}>No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
                         </select>
                     </div>
                 </div>
@@ -165,7 +204,13 @@ const CampaignForm = ({
                             : "Kindly select the time you want to receive daily digest"}
                     </label>
 
-                    <div className={`${formIntent === "create" ? "w-full md:max-w-44" : "w-full"} px-2 border border-gray-300 rounded-md`}>
+                    <div
+                        className={`${
+                            formIntent === "create"
+                                ? "w-full md:max-w-44"
+                                : "w-full"
+                        } px-2 border border-gray-300 rounded-md`}
+                    >
                         <select
                             id="dailyDigest"
                             name="dailyDigest"
@@ -174,10 +219,12 @@ const CampaignForm = ({
                             onChange={handleFormChange}
                         >
                             <option value="">Select</option>
-                            <option value="Once">Once</option>
-                            <option value="Twice">Twice</option>
-                            <option value="3 Times">3 Times</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Twice Daily">Twice Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Bi-weekly">Bi-weekly</option>
                             <option value="Monthly">Monthly</option>
+                            <option value="Yearly">Yearly</option>
                         </select>
                     </div>
                 </div>
@@ -220,9 +267,9 @@ const CampaignForm = ({
                         size="lg"
                         variant="outline"
                         colorScheme="primary"
-                        onClick={submitHandler}
+                        onClick={updateHandler}
                     >
-                        Save Changes
+                        {isSubmitting ? "Saving..." : "Save Changes"}
                     </Button>
                 </div>
             )}

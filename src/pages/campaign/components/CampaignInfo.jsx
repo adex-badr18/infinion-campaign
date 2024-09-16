@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { campaignsData } from "../../../components/data";
 import TagsInput from "../../../components/TagsInput";
 import Button from "../../../components/Button";
 import { ISOTodate } from "../../../utils/date";
 
-const CampaignInfo = ({ campaignData, tags, cancelHandler }) => {
+const CampaignInfo = ({ campaignData, setCampaignData, tags, cancelHandler }) => {
     const navigate = useNavigate();
 
     return (
@@ -46,7 +45,7 @@ const CampaignInfo = ({ campaignData, tags, cancelHandler }) => {
                         id="startDate"
                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-4 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     >
-                        {ISOTodate(campaignData.startDate)}
+                        {campaignData.startDate}
                     </div>
                 </div>
 
@@ -58,7 +57,7 @@ const CampaignInfo = ({ campaignData, tags, cancelHandler }) => {
                         id="endDate"
                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-4 text-base text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     >
-                        {ISOTodate(campaignData.endDate)}
+                        {campaignData.endDate}
                     </div>
                 </div>
             </div>
@@ -72,6 +71,7 @@ const CampaignInfo = ({ campaignData, tags, cancelHandler }) => {
                     id="linkedKeywords"
                     tags={tags}
                     campaignData={campaignData}
+                    setCampaignData={setCampaignData}
                     isEditable={false}
                 />
             </div>
@@ -83,7 +83,7 @@ const CampaignInfo = ({ campaignData, tags, cancelHandler }) => {
 
                 <div className="w-full px-2 border border-gray-300 rounded-md">
                     <select
-                        id="dailyDigest"
+                        id="digestCampaign"
                         className={`w-full py-2 bg-white text-gray-700 focus:outline-none `}
                     >
                         <option value={campaignData.digestCampaign}>
@@ -126,7 +126,9 @@ const CampaignInfo = ({ campaignData, tags, cancelHandler }) => {
                     size="lg"
                     variant="outline"
                     colorScheme="primary"
-                    onClick={() => navigate(`/campaigns/${campaignData.id}/edit`)}
+                    onClick={() =>
+                        navigate(`/campaigns/${campaignData.id}/edit`)
+                    }
                 >
                     Edit Information
                 </Button>

@@ -1,29 +1,40 @@
 import React, { useState } from "react";
 import Modal from "../../../components/Modal";
-import Button from "../../../components/Button";
-import CampaignResponse from "../components/CampaignResponse";
 import ConfirmCampaignDelete from "../components/ConfirmCampaignDelete";
+import CampaignResponse from "../components/CampaignResponse";
 import PageTitle from "../../../components/PageTitle";
 import CampaignForm from "../components/CampaignForm";
-import TagsInput from "../../../components/TagsInput";
+import FetchError from "../../../components/FetchError";
 import { BackArrow } from "../../../components/icons";
-import { Link } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
+import { getCampaign } from "../api";
+import { ISOTodate, formatDateToYYYYMMDD } from "../../../utils/date";
+
+export const loader = async ({ params }) => {
+    const campaignResponse = await getCampaign(params.id);
+
+    if (!campaignResponse.status) {
+        const formattedDataDates = {
+            ...campaignResponse,
+            id: params.id,
+            startDate: formatDateToYYYYMMDD(
+                ISOTodate(campaignResponse.startDate)
+            ),
+            endDate: formatDateToYYYYMMDD(ISOTodate(campaignResponse.endDate)),
+        };
+        return formattedDataDates;
+    }
+
+    return campaignResponse;
+};
 
 const CampaignEdit = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [campaignData, setCampaignData] = useState({
-        id: 1,
-        campaignName: "MTN Campaign",
-        campaignDescription: "MTN Campaign description.",
-        startDate: "2024-05-12",
-        endDate: "2025-05-12",
-        digestCampaign: true,
-        linkedKeywords: ["MTN", "subscribe", "ISP"],
-        dailyDigest: "Monthly",
-        campaignStatus: "Active",
-    });
-
+    const data = useLoaderData();
+    const navigate = useNavigate();
+    const [campaignData, setCampaignData] = useState(data.status ? {} : data);
+    const [message, setMessage] = useState("")
     const [tags, setTags] = useState(campaignData.linkedKeywords);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleFormChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -35,21 +46,16 @@ const CampaignEdit = () => {
         }));
     };
 
-    const updateCampaign = (e) => {
-        e.preventDefault();
-
-        console.log(campaignData);
-    };
-
-    const stopCampaign = () => {
-        console.log(campaignData);
-    };
-
-    return (
+    return data.status ? (
+        <FetchError error={data} />
+    ) : (
         <div className="space-y-4">
-            <Link to=".." className="flex items-center gap-1 text-[#333333]">
+            <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-1 text-[#333333]"
+            >
                 <BackArrow /> Back
-            </Link>
+            </button>
 
             <div className="w-full md:max-w-[684px] space-y-4">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -65,25 +71,33 @@ const CampaignEdit = () => {
                     </div>
                 </div>
 
+                {
+                    message && (
+                        <div className="w-full bg-red-200 text-maroon px-2 py-1 text-sm font-semibold rounded">{message}</div>
+                    )
+                }
+
                 <CampaignForm
                     campaignData={campaignData}
                     setCampaignData={setCampaignData}
                     handleFormChange={handleFormChange}
                     tags={tags}
                     setTags={setTags}
-                    submitHandler={updateCampaign}
-                    cancelHandler={stopCampaign}
+                    // submitHandler={updateHandler}
+                    // cancelHandler={stopCampaign}
                     formIntent="update"
+                    setMessage={setMessage}
+                    setIsModalOpen={setIsModalOpen}
                 />
             </div>
 
             <Modal isOpen={isModalOpen}>
                 <div className="overflow-y-auto w-full max-w-[550px] py-14 rounded-lg shadow-md bg-white z-50">
                     <div className="w-full">
-                        {/* <CampaignResponse goToCampaigns={goToCampaigns} /> */}
-                        <ConfirmCampaignDelete
+                        <CampaignResponse message={message} setIsModalOpen={setIsModalOpen} />
+                        {/* <ConfirmCampaignDelete
                             setIsModalOpen={setIsModalOpen}
-                        />
+                        /> */}
                     </div>
                 </div>
             </Modal>
