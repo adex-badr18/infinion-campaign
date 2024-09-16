@@ -20,6 +20,8 @@ const Table = ({ tableData, cols }) => {
     const [columnFilters, setColumnFilters] = useState([]);
     const [globalFilter, setGlobalFilter] = useState("");
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    // const [activeLength, setActiveLength] = useState();
+    // const [inactiveLength, setInactiveLength] = useState();
 
     const columnHelper = createColumnHelper();
     const columns = cols.map((col) => {
@@ -36,11 +38,7 @@ const Table = ({ tableData, cols }) => {
             return columnHelper.accessor(col.id, {
                 id: col.id,
                 header: col.header,
-                cell: (info) => (
-                    <span>
-                        {info.getValue()}
-                    </span>
-                ),
+                cell: (info) => <span>{info.getValue()}</span>,
                 filterFn: "includesString",
             });
         }
@@ -64,7 +62,7 @@ const Table = ({ tableData, cols }) => {
                         </span>
                     );
                 },
-                filterFn: "equalsString"
+                filterFn: "equalsString",
             });
         }
 
@@ -103,6 +101,26 @@ const Table = ({ tableData, cols }) => {
         },
     });
 
+    // Get the lengths of active and inactive campaigns in the table
+    const activeRowsCount = useMemo(() => {
+        return table
+            .getFilteredRowModel()
+            .rows.filter(
+                (campaign) => campaign.getValue("campaignStatus") === "Active"
+            ).length;
+    }, [table.getFilteredRowModel().rows]);
+
+    const inactiveRowsCount = useMemo(() => {
+        return table
+            .getFilteredRowModel()
+            .rows.filter(
+                (campaign) => campaign.getValue("campaignStatus") === "Inactive"
+            ).length;
+    }, [table.getFilteredRowModel().rows]);
+
+    console.log(activeRowsCount)
+    console.log(inactiveRowsCount)
+
     return (
         <div className="flex flex-col gap-6 w-full">
             {/* <div className="flex flex-row justify-between items-start md:items-center gap-6">
@@ -131,6 +149,8 @@ const Table = ({ tableData, cols }) => {
                 setGlobalFilter={setGlobalFilter}
                 tableData={tableData}
                 table={table}
+                activeRowsCount={activeRowsCount}
+                inactiveRowsCount={inactiveRowsCount}
             />
 
             <div className="overflow-auto rounded">

@@ -13,6 +13,8 @@ const Filter = ({
     setGlobalFilter,
     tableData,
     table,
+    activeRowsCount,
+    inactiveRowsCount,
 }) => {
     const [startDate, setStartDate] = useState();
     const [filterValue, setFilterValue] = useState(globalFilter);
@@ -25,8 +27,6 @@ const Filter = ({
 
         return () => clearTimeout(timeOut);
     }, [filterValue]);
-
-    // console.log(table.getCoreRowModel().rows)
 
     const handleChange = (id, value) => {
         if (!id && !value) {
@@ -52,30 +52,21 @@ const Filter = ({
     };
 
     const removeDateFilter = () => {
-        setStartDate()
+        setStartDate();
         setColumnFilters((prev) => prev.filter((f) => f.id !== "startDate"));
     };
 
-    // Get the lengths of active and inactive campaigns in the table
-    const campaignsLength = tableData.length;
-    const activeCampaignsLength = tableData.filter(
-        (campaign) => campaign.campaignStatus.toLowerCase() === "active"
-    ).length;
-    const inactiveCampaignsLength = tableData.filter(
-        (campaign) => campaign.campaignStatus.toLowerCase() === "inactive"
-    ).length;
-
     const statusFilterButtons = [
-        { id: "", value: "", text: `All (${campaignsLength})` },
+        { id: "", value: "", text: `All (${tableData.length})` },
         {
             id: "campaignStatus",
             value: "Inactive",
-            text: `Inactive (${inactiveCampaignsLength})`,
+            text: `Inactive (${inactiveRowsCount})`,
         },
         {
             id: "campaignStatus",
             value: "Active",
-            text: `Active (${activeCampaignsLength})`,
+            text: `Active (${activeRowsCount})`,
         },
     ];
 
@@ -139,8 +130,6 @@ const Filter = ({
                     showMonthDropdown
                     showYearDropdown
                     dropdownMode="select"
-
-                    // placeholderText="Filter by date"
                 />
             </div>
 
