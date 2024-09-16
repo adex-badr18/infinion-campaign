@@ -9,7 +9,7 @@ import { ISOTodate } from "../../utils/date";
 export const loader = async () => {
     const campaignsResponse = await getCampaigns();
 
-    if (campaignsResponse.status === 200) {
+    if (!campaignsResponse.status) {
         const formattedDataDates = campaignsResponse.map((dataItem) => ({
             ...dataItem,
             startDate: ISOTodate(dataItem.startDate),

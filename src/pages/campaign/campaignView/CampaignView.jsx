@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import CampaignResponse from "../components/CampaignResponse";
@@ -9,32 +9,43 @@ import CampaignForm from "../components/CampaignForm";
 import CampaignInfo from "../components/CampaignInfo";
 import TagsInput from "../../../components/TagsInput";
 import { BackArrow } from "../../../components/icons";
-import { Link } from "react-router-dom";
+import { getCampaign } from "../api";
+import { ISOTodate } from "../../../utils/date";
+import FetchError from "../../../components/FetchError";
+
+export const loader = async ({ params }) => {
+    const campaignResponse = await getCampaign(params.id);
+
+    if (!campaignResponse.status) {
+        const formattedDataDates = {
+            ...campaignResponse,
+            startDate: ISOTodate(campaignResponse.startDate),
+            endDate: ISOTodate(campaignResponse.endDate),
+        };
+        return formattedDataDates;
+    }
+
+    return campaignResponse;
+};
 
 const CampaignView = () => {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [campaignData, setCampaignData] = useState({
-        id: 1,
-        campaignName: "MTN Campaign",
-        campaignDescription: "MTN Campaign description.",
-        startDate: "2024-05-12",
-        endDate: "2025-05-12",
-        digestCampaign: true,
-        linkedKeywords: ["MTN", "subscribe", "ISP"],
-        dailyDigest: "Monthly",
-        campaignStatus: "Active",
-    });
 
-    // const [tags, setTags] = useState(campaignData.linkedKeywords);
+    const campaignData = useLoaderData();
 
     const stopCampaign = () => {
-        console.log(campaignData);
+        setIsModalOpen(true);
     };
 
-    return (
+    return campaignData.status ? (
+        <FetchError error={campaignData} />
+    ) : (
         <div className="space-y-4">
-            <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-[#333333]">
+            <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-1 text-[#333333]"
+            >
                 <BackArrow /> Back
             </button>
 
@@ -62,9 +73,9 @@ const CampaignView = () => {
             <Modal isOpen={isModalOpen}>
                 <div className="overflow-y-auto w-full max-w-[550px] py-14 rounded-lg shadow-md bg-white z-50">
                     <div className="w-full">
-                        {/* <CampaignResponse goToCampaigns={goToCampaigns} /> */}
                         <ConfirmCampaignDelete
                             setIsModalOpen={setIsModalOpen}
+                            campaign={campaignData}
                         />
                     </div>
                 </div>

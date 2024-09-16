@@ -18,6 +18,9 @@ export const dateToISO = (dateString) => {
 
 // Function to convert ISO to date string
 export const ISOTodate = (isoDateString) => {
+    if (!isoDateString) {
+        return "-"
+    }
     const date = new Date(isoDateString); // Parse ISO 8601 string
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
