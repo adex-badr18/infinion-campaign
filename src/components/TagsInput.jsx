@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { TagClose } from "./icons";
 
-const TagsInput = ({ tags, setTags, campaignData, setCampaignData }) => {
+const TagsInput = ({
+    tags,
+    setTags,
+    campaignData,
+    setCampaignData,
+    isEditable,
+}) => {
     const [inputValue, setInputValue] = useState("");
 
     // Handle input changes
@@ -31,7 +37,7 @@ const TagsInput = ({ tags, setTags, campaignData, setCampaignData }) => {
             if (tags.length > campaignData.linkedKeywords.length) {
                 setCampaignData({
                     ...campaignData,
-                    linkedKeywords: [...tags]
+                    linkedKeywords: [...tags],
                 });
             }
         }
@@ -39,7 +45,9 @@ const TagsInput = ({ tags, setTags, campaignData, setCampaignData }) => {
 
     // Handle removing a tag
     const removeTag = (indexToRemove) => {
-        setTags(tags.filter((_, index) => index !== indexToRemove));
+        if (isEditable) {
+            setTags(tags.filter((_, index) => index !== indexToRemove));
+        }
     };
 
     return (
@@ -52,25 +60,27 @@ const TagsInput = ({ tags, setTags, campaignData, setCampaignData }) => {
                     onClick={() => removeTag(index)}
                 >
                     <span>{tag}</span>
-                    <TagClose />
+                    {isEditable && <TagClose />}
                 </div>
             ))}
 
             {/* Input field for adding new tags */}
             {/* Display placeholder only when tags array is empty */}
-            <input
-                type="text"
-                className="flex-grow outline-none py-1"
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                onKeyUp={handleKeyUp}
-                placeholder={
-                    tags.length === 0
-                        ? "To add keywords, type your keyword and press enter"
-                        : ""
-                }
-            />
+            {isEditable && (
+                <input
+                    type="text"
+                    className="flex-grow outline-none py-1"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    onKeyUp={handleKeyUp}
+                    placeholder={
+                        tags.length === 0
+                            ? "To add keywords, type your keyword and press enter"
+                            : ""
+                    }
+                />
+            )}
         </div>
     );
 };

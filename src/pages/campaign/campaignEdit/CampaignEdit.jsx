@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import CampaignResponse from "../components/CampaignResponse";
 import ConfirmCampaignDelete from "../components/ConfirmCampaignDelete";
 import PageTitle from "../../../components/PageTitle";
 import CampaignForm from "../components/CampaignForm";
-import CampaignInfo from "../components/CampaignInfo";
 import TagsInput from "../../../components/TagsInput";
 import { BackArrow } from "../../../components/icons";
 import { Link } from "react-router-dom";
 
-const CampaignView = () => {
-    const navigate = useNavigate();
+const CampaignEdit = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [campaignData, setCampaignData] = useState({
         id: 1,
@@ -26,7 +23,23 @@ const CampaignView = () => {
         campaignStatus: "Active",
     });
 
-    // const [tags, setTags] = useState(campaignData.linkedKeywords);
+    const [tags, setTags] = useState(campaignData.linkedKeywords);
+
+    const handleFormChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        const elementValue = type === "checkbox" ? checked : value;
+
+        setCampaignData((prev) => ({
+            ...prev,
+            [name]: elementValue,
+        }));
+    };
+
+    const updateCampaign = (e) => {
+        e.preventDefault();
+
+        console.log(campaignData);
+    };
 
     const stopCampaign = () => {
         console.log(campaignData);
@@ -34,13 +47,13 @@ const CampaignView = () => {
 
     return (
         <div className="space-y-4">
-            <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-[#333333]">
+            <Link to=".." className="flex items-center gap-1 text-[#333333]">
                 <BackArrow /> Back
-            </button>
+            </Link>
 
             <div className="w-full md:max-w-[684px] space-y-4">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <PageTitle size="sm" title="Campaign Information" />
+                    <PageTitle size="sm" title="Edit Campaign Information" />
 
                     <div className="flex items-center px-4 py-2 bg-[#EDF0F0] rounded">
                         <span className="text-sm font-medium text-nowrap pr-4 border-r border-r-[#999999]">
@@ -52,10 +65,15 @@ const CampaignView = () => {
                     </div>
                 </div>
 
-                <CampaignInfo
+                <CampaignForm
                     campaignData={campaignData}
-                    tags={campaignData.linkedKeywords}
+                    setCampaignData={setCampaignData}
+                    handleFormChange={handleFormChange}
+                    tags={tags}
+                    setTags={setTags}
+                    submitHandler={updateCampaign}
                     cancelHandler={stopCampaign}
+                    formIntent="update"
                 />
             </div>
 
@@ -73,4 +91,4 @@ const CampaignView = () => {
     );
 };
 
-export default CampaignView;
+export default CampaignEdit;

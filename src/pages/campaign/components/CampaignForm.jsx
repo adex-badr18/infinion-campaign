@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import TagsInput from "../../../components/TagsInput";
 
@@ -14,6 +15,8 @@ const CampaignForm = ({
     cancelHandler,
     formIntent,
 }) => {
+    const navigate = useNavigate();
+
     return (
         <form
             className="flex flex-col gap-4 w-full md:max-w-[684px]"
@@ -128,6 +131,7 @@ const CampaignForm = ({
                     campaignData={campaignData}
                     setCampaignData={setCampaignData}
                     id="linkedKeywords"
+                    isEditable={true}
                 />
             </div>
 
@@ -207,9 +211,9 @@ const CampaignForm = ({
                         size="lg"
                         variant="solid"
                         colorScheme="red"
-                        onClick={cancelHandler}
+                        onClick={() => navigate(-1)}
                     >
-                        Stop Campaign
+                        Cancel
                     </Button>
                     <Button
                         type="submit"
@@ -218,7 +222,7 @@ const CampaignForm = ({
                         colorScheme="primary"
                         onClick={submitHandler}
                     >
-                        Edit Information
+                        Save Changes
                     </Button>
                 </div>
             )}

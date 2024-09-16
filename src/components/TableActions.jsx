@@ -14,7 +14,7 @@ const TableActions = ({ row }) => {
     };
 
     const edit = () => {
-        navigate(`/campaigns/${campaign.id}`);
+        navigate(`/campaigns/${campaign.id}/edit`);
     };
 
     return (
