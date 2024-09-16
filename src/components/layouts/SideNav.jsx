@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Logo } from "../icons";
 import SearchBar from "../SearchBar";
 import Button from "../Button";
@@ -8,6 +9,8 @@ import CustomNavLink from "../CustomNavLink";
 import { navLinkData } from "../data";
 
 const SideNav = () => {
+    const navigate = useNavigate();
+
     return (
         <nav className="px-8 py-6 overflow-y-auto bg-[#F0F4F4] h-full">
             <Logo />
@@ -19,6 +22,7 @@ const SideNav = () => {
                     size="lg"
                     icon={<Plus />}
                     colorScheme="primary"
+                    onClick={() => navigate("/campaigns/create")}
                 >
                     New Campaign
                 </Button>

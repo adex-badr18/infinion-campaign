@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PageTitle from "../../components/PageTitle";
 import Button from "../../components/Button";
 import DateRangePicker from "../../components/DateRangePicker";
@@ -6,6 +7,8 @@ import { Plus, Download, Calendar } from "../../components/icons";
 import emptySearchImg from "../../assets/empty-search.png";
 
 const Overview = () => {
+    const navigate = useNavigate();
+    
     return (
         <div className="h-full grid grid-rows-[40px_1fr] gap-10">
             <div className="flex justify-between items-center">
@@ -45,6 +48,7 @@ const Overview = () => {
                     size="lg"
                     icon={<Plus />}
                     colorScheme="primary"
+                    onClick={() => navigate("/campaigns/create")}
                 >
                     New Campaign
                 </Button>
