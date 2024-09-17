@@ -1,15 +1,21 @@
 import React from "react";
 import { Mark } from "../../../components/icons";
 import Button from "../../../components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CampaignResponse = ({ message, setIsModalOpen }) => {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const gotoCampaignList = () => {
         setIsModalOpen(false);
+
+        if (pathname === "/campaigns") {
+            navigate(0); // Navigates to the current page and refreshe the page to update the table
+        }
+
         navigate("/campaigns");
-    }
+    };
 
     return (
         <div className="flex flex-col items-center gap-12 w-full max-w-[229px] mx-auto">

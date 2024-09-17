@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import PageTitle from "../../components/PageTitle";
 import Table from "../../components/Table";
@@ -31,6 +31,7 @@ const Campaigns = () => {
     ];
 
     const data = useLoaderData();
+    const [tableData, setTableData] = useState(data.status ? {} : data);
 
     return data.status ? (
         <FetchError error={data} />
@@ -38,7 +39,7 @@ const Campaigns = () => {
         <div className="">
             <div className="w-full space-y-4">
                 <PageTitle size="sm" title="All Campaigns" />
-                <Table tableData={data} cols={campaignColumns} />
+                <Table tableData={tableData} cols={campaignColumns} />
             </div>
         </div>
     );
