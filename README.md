@@ -1,6 +1,6 @@
 # FRONTEND CAMPAIGN CHALLENGE
 
-This project was developed as a test challenge for the application of the Frontend Developer Trainee Program at Infinion Technologies.
+I developed this project as part of the test challenge required for the Frontend Trainee Program at Infinion Technologies.
 
 The challenge aims to assess applicants ability to translate a given design into a functional frontend interface while
 integrating with a backend API.
@@ -13,20 +13,20 @@ integrating with a backend API.
 ## EXPECTED FEATURES
 
 1. Design the Overview Interface
- - Implement the overview interface as per the provided design.
+    - Implement the overview interface as per the provided design.
 2. Create a New Campaign
- - Users should be able to create a new campaign by filling in the necessary
+    - Users should be able to create a new campaign by filling in the necessary
 details.
- - Upon submission, the campaign should be added to the list of campaigns
+    - Upon submission, the campaign should be added to the list of campaigns
 via the backend API.
 3. List of All Campaigns
- - Retrieve and populate the list of all campaigns, including all details (as
+    - Retrieve and populate the list of all campaigns, including all details (as
 given in the design).
 4. View, Edit, and Delete a Campaign
- - Users should be able to view a campaign's details by clicking on it.
- - Provide functionality to edit the details of a campaign and save the
+    - Users should be able to view a campaign's details by clicking on it.
+    - Provide functionality to edit the details of a campaign and save the
 changes via the backend API.
- - Allow users to delete a campaign, with confirmation.
+    - Allow users to delete a campaign, with confirmation.
 
  ## RESULT
 
