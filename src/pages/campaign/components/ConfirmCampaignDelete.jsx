@@ -33,10 +33,12 @@ const ConfirmCampaignDelete = ({ setIsModalOpen, campaign }) => {
             {isFetchError ? (
                 <p className="">{`Failed to delete campaign. Please try again.`}</p>
             ) : (
-                <p className="text-sm font-medium text-[#666666] text-center">
-                    {`Are You sure you want to delete ${campaign.campaignName}? This action cannot
-                be undone.`}
-                </p>
+                <div className="space-y-1">
+                    <p className="text-sm font-medium text-[#666666] text-center">
+                        {`Are You sure you want to delete ${campaign.campaignName}? `}
+                    </p>
+                    <p className="text-sm font-medium text-[#666666] text-center">This action cannot be undone.</p>
+                </div>
             )}
 
             <div className="flex flex-col gap-4 md:flex-row w-4/5">
