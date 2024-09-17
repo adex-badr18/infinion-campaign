@@ -10,6 +10,7 @@ import {
 
 import Modal from "./Modal";
 import Pagination from "./Pagination";
+import NewPagination from "./NewPagination";
 import Filter from "./Filter";
 import PageTitle from "./PageTitle";
 import TableActions from "./TableActions";
@@ -194,7 +195,7 @@ const Table = ({ tableData, cols }) => {
                 </table>
             </div>
             {/* Pagination */}
-            <Pagination table={table} tableData={tableData} />
+            <NewPagination table={table} tableData={tableData} />
 
             {/* Mobile Filter Modal */}
             {/* <Modal isOpen={isFilterOpen}>
