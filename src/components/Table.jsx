@@ -6,15 +6,13 @@ import {
     getFilteredRowModel,
     createColumnHelper,
     flexRender,
+    getSortedRowModel,
 } from "@tanstack/react-table";
-
-import Modal from "./Modal";
 import Pagination from "./Pagination";
 import NewPagination from "./NewPagination";
 import Filter from "./Filter";
-import PageTitle from "./PageTitle";
 import TableActions from "./TableActions";
-import { ISOTodate, formatDateToDDMMYYYY } from "../utils/date";
+import { SortIcon, SortAsc, SortDesc } from "./icons";
 
 const Table = ({ tableData, cols }) => {
     const [data] = useState(tableData);
@@ -30,6 +28,7 @@ const Table = ({ tableData, cols }) => {
                 header: col.header,
                 cell: (info) => <span>{`${info.row.index + 1}.`}</span>,
                 filterFn: "includesString",
+                enableSorting: col.isSort,
             });
         }
 
@@ -39,6 +38,7 @@ const Table = ({ tableData, cols }) => {
                 header: col.header,
                 cell: (info) => <span>{info.getValue()}</span>,
                 filterFn: "includesString",
+                enableSorting: col.isSort,
             });
         }
 
@@ -62,6 +62,7 @@ const Table = ({ tableData, cols }) => {
                     );
                 },
                 filterFn: "equalsString",
+                enableSorting: col.isSort,
             });
         }
 
@@ -71,6 +72,7 @@ const Table = ({ tableData, cols }) => {
                 header: col.header,
                 cell: TableActions,
                 filterFn: "includesString",
+                enableSorting: col.isSort,
             });
         }
 
@@ -83,6 +85,7 @@ const Table = ({ tableData, cols }) => {
                 </span>
             ),
             filterFn: "includesString",
+            enableSorting: col.isSort,
         });
     });
 
@@ -93,12 +96,18 @@ const Table = ({ tableData, cols }) => {
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         state: {
             columnFilters,
             globalFilter,
         },
     });
+
+    const sortData = {
+        'asc': <SortAsc />,
+        'desc': <SortDesc />
+    }
 
     // Get the lengths of active and inactive campaigns in the table
     const activeRowsCount = useMemo(() => {
@@ -156,10 +165,18 @@ const Table = ({ tableData, cols }) => {
                             <tr className="rounded" key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <th key={header.id} className="th">
-                                        {flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
+                                        <div className="flex items-center gap-1">
+                                            {flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+
+                                            {header.column.getCanSort() && (
+                                                <SortIcon className="hover:cursor-pointer" onClick={header.column.getToggleSortingHandler()} />
+                                            )}
+
+                                            {sortData[header.column.getIsSorted()]}
+                                        </div>
                                     </th>
                                 ))}
                             </tr>

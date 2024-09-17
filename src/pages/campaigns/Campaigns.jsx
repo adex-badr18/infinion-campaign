@@ -23,11 +23,11 @@ export const loader = async () => {
 
 const Campaigns = () => {
     const campaignColumns = [
-        { id: "s/n", header: "S/N" },
-        { id: "campaignName", header: "Campaign Name" },
-        { id: "startDate", header: "Start Date" },
-        { id: "campaignStatus", header: "Status" },
-        { id: "actions", header: "Actions" },
+        { id: "s/n", header: "S/N", isSort: false },
+        { id: "campaignName", header: "Campaign Name", isSort: true },
+        { id: "startDate", header: "Start Date", isSort: false },
+        { id: "campaignStatus", header: "Status", isSort: true },
+        { id: "actions", header: "Actions", isSort: false },
     ];
 
     const data = useLoaderData();
