@@ -14,21 +14,21 @@ export const getCampaign = async (id) => {
         if (error.response) {
             // Server responded with a status other than 200 range
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else if (error.request) {
             // Request was made but no response received
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else {
             // Something happened in setting up the request
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
@@ -51,21 +51,21 @@ export const createCampaign = async (data) => {
         if (error.response) {
             // Server responded with a status other than 200 range
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else if (error.request) {
             // Request was made but no response received
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else {
             // Something happened in setting up the request
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
@@ -88,21 +88,21 @@ export const updateCampaign = async (id, data) => {
         if (error.response) {
             // Server responded with a status other than 200 range
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else if (error.request) {
             // Request was made but no response received
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else {
             // Something happened in setting up the request
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
@@ -124,21 +124,21 @@ export const deleteCampaign = async (id) => {
         if (error.response) {
             // Server responded with a status other than 200 range
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else if (error.request) {
             // Request was made but no response received
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
         } else {
             // Something happened in setting up the request
             return {
-                error: error.response.statusText,
+                // error: error.response.statusText,
                 message: error.message,
                 status: error.status,
             };
