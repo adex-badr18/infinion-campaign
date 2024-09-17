@@ -69,6 +69,7 @@ const CampaignCreate = () => {
                         <CampaignResponse
                             message={message}
                             setIsModalOpen={setIsModalOpen}
+                            intent="create"
                         />
                     </div>
                 </div>

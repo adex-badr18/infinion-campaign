@@ -25,7 +25,6 @@ const CampaignForm = ({
         e.preventDefault();
 
         setIsSubmitting(true);
-        console.log(campaignData);
 
         const create = await createCampaign(campaignData);
 
@@ -64,7 +63,7 @@ const CampaignForm = ({
 
         if (update.success) {
             setIsSubmitting(false);
-            setMessage("Campaign Successfully Updated!");
+            setMessage(`${campaignData.campaignName} Successfully Updated!`);
             setIsModalOpen(true);
         }
 

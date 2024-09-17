@@ -94,7 +94,7 @@ const CampaignEdit = () => {
             <Modal isOpen={isModalOpen}>
                 <div className="overflow-y-auto w-full max-w-[550px] py-14 rounded-lg shadow-md bg-white z-50">
                     <div className="w-full">
-                        <CampaignResponse message={message} setIsModalOpen={setIsModalOpen} />
+                        <CampaignResponse message={message} setIsModalOpen={setIsModalOpen} intent="update" />
                         {/* <ConfirmCampaignDelete
                             setIsModalOpen={setIsModalOpen}
                         /> */}

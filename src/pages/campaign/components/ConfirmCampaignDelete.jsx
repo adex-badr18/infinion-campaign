@@ -28,7 +28,10 @@ const ConfirmCampaignDelete = ({ setIsModalOpen, campaign }) => {
 
     return !isSubmitted ? (
         <div className="bg-white flex flex-col items-center justify-center gap-12 w-full max-w-[416px] mx-auto">
-            <h3 className="font-semibold text-[#333333]">Stop Campaign</h3>
+            <div className="space-y-4 w-full">
+                <h3 className="font-semibold text-[#333333] text-center">Stop Campaign</h3>
+                <div className="h-[1px] bg-[#F0F4F4]"></div>
+            </div>
 
             {isFetchError ? (
                 <p className="">{`Failed to delete campaign. Please try again.`}</p>
@@ -37,7 +40,9 @@ const ConfirmCampaignDelete = ({ setIsModalOpen, campaign }) => {
                     <p className="text-sm font-medium text-[#666666] text-center">
                         {`Are You sure you want to delete ${campaign.campaignName}? `}
                     </p>
-                    <p className="text-sm font-medium text-[#666666] text-center">This action cannot be undone.</p>
+                    <p className="text-sm font-medium text-[#666666] text-center">
+                        This action cannot be undone.
+                    </p>
                 </div>
             )}
 
@@ -62,8 +67,9 @@ const ConfirmCampaignDelete = ({ setIsModalOpen, campaign }) => {
         </div>
     ) : (
         <CampaignResponse
-            message={`Campaign Successfully Deleted!`}
+            message={`${campaign.campaignName} has been deleted!`}
             setIsModalOpen={setIsModalOpen}
+            intent="delete"
         />
     );
 };
