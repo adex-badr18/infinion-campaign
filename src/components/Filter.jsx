@@ -123,7 +123,7 @@ const Filter = ({
                     todayButton="Today"
                     onSelect={(date) => {
                         const formattedDate = ISOTodate(date);
-                        setStartDate(formattedDate);
+                        setStartDate(date);
                         handleDateChange("startDate", formattedDate);
                     }}
                     customInput={<CustomDateInput />}
