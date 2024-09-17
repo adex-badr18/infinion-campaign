@@ -3,7 +3,7 @@ import React from "react";
 const Button = ({ children, variant, icon, size, classes, colorScheme, ...rest }) => {
     return (
         <button
-            className={`flex items-center justify-center gap-[10px] text-sm font-semibold py-[10px] px-4 rounded-[4px] w-full min-w-24 border text-nowrap 
+            className={`flex items-center justify-center gap-[10px] text-sm font-semibold py-[10px] px-4 rounded-[4px] w-full min-w-24 border text-nowrap disabled:cursor-not-allowed disabled:opacity-55 
             ${size === "lg" && "max-w-[196px]"} 
             ${size === "wide" && "w-[229px]"} 
             ${(variant === "solid" && colorScheme === "primary") && "bg-primary border-primary text-white hover:bg-teal-600"} 

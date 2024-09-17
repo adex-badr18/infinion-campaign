@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import TagsInput from "../../../components/TagsInput";
-import { updateCampaign } from "../api";
+import { updateCampaign, createCampaign } from "../api";
 
 const CampaignForm = ({
     campaignData,
@@ -12,16 +12,34 @@ const CampaignForm = ({
     setTags,
     enableDailyDigest,
     toggleDailyDigest,
-    submitHandler,
-    cancelHandler,
     formIntent,
     setMessage,
     setIsModalOpen,
 }) => {
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const {campaignName, startDate, linkedKeywords} = campaignData;
+    const isFormInvalid = !campaignName || !startDate || linkedKeywords.length === 0;
 
-    console.log(campaignData)
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        setIsSubmitting(true);
+        console.log(campaignData);
+
+        const create = await createCampaign(campaignData);
+
+        setIsSubmitting(false);
+
+        if (create.success) {
+            setMessage(create.success);
+            setIsModalOpen(true);
+
+            return;
+        }
+
+        setMessage(`Failed! ${create.message}`);
+    };
 
     const updateHandler = async (e) => {
         e.preventDefault();
@@ -52,8 +70,16 @@ const CampaignForm = ({
 
         if (update.message) {
             setIsSubmitting(false);
-            setMessage("Failed to update campaign!");
+            setMessage(`Update Failed! ${update.message}`);
         }
+    };
+
+    const cancel = (e) => {
+        e.preventDefault();
+
+        console.log(campaignData);
+
+        setIsModalOpen(true);
     };
 
     return (
@@ -236,7 +262,7 @@ const CampaignForm = ({
                         size="lg"
                         variant="outline"
                         colorScheme="primary"
-                        onClick={cancelHandler}
+                        onClick={cancel}
                     >
                         Cancel
                     </Button>
@@ -245,9 +271,9 @@ const CampaignForm = ({
                         size="lg"
                         variant="solid"
                         colorScheme="primary"
-                        onClick={submitHandler}
+                        disabled={isFormInvalid}
                     >
-                        Create Campaign
+                        {isSubmitting ? "Creating..." : "Create Campaign"}                        
                     </Button>
                 </div>
             )}
@@ -268,6 +294,7 @@ const CampaignForm = ({
                         variant="outline"
                         colorScheme="primary"
                         onClick={updateHandler}
+                        disabled={isFormInvalid}
                     >
                         {isSubmitting ? "Saving..." : "Save Changes"}
                     </Button>

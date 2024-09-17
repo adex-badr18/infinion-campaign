@@ -36,6 +36,43 @@ export const getCampaign = async (id) => {
     }
 };
 
+export const createCampaign = async (data) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/Campaign/`, data);
+
+        if (response.status === 201) {
+            return {
+                success: "Campaign Successfully Created!",
+                data: response.data
+            };
+        }
+    } catch (error) {
+        // Handle the error response
+        if (error.response) {
+            // Server responded with a status other than 200 range
+            return {
+                error: error.response.statusText,
+                message: error.message,
+                status: error.status,
+            };
+        } else if (error.request) {
+            // Request was made but no response received
+            return {
+                error: error.response.statusText,
+                message: error.message,
+                status: error.status,
+            };
+        } else {
+            // Something happened in setting up the request
+            return {
+                error: error.response.statusText,
+                message: error.message,
+                status: error.status,
+            };
+        }
+    }
+};
+
 export const updateCampaign = async (id, data) => {
     try {
         const response = await axios.put(`${BASE_URL}/Campaign/${id}`, data);

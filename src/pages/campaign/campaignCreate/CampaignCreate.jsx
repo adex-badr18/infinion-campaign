@@ -1,18 +1,13 @@
 import React, { useState } from "react";
-import Button from "../../../components/Button";
 import PageTitle from "../../../components/PageTitle";
-import TagsInput from "../../../components/TagsInput";
 import Modal from "../../../components/Modal";
 import CampaignResponse from "../components/CampaignResponse";
-import Select from "../../../components/Select";
 import CampaignForm from "../components/CampaignForm";
-
-import { useNavigate } from "react-router-dom";
-import ConfirmCampaignDelete from "../components/ConfirmCampaignDelete";
 
 const CampaignCreate = () => {
     const [tags, setTags] = useState([]);
     const [enableDailyDigest, setEnableDailyDigest] = useState(true);
+    const [message, setMessage] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [campaignData, setCampaignData] = useState({
         campaignName: "",
@@ -23,7 +18,6 @@ const CampaignCreate = () => {
         linkedKeywords: tags,
         dailyDigest: "",
     });
-    const navigate = useNavigate();
 
     const handleFormChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -46,25 +40,15 @@ const CampaignCreate = () => {
         }));
     };
 
-    const submit = (e) => {
-        e.preventDefault();
-
-        console.log(campaignData);
-
-        setIsModalOpen(true);
-    };
-
-    const cancel = (e) => {
-        e.preventDefault();
-
-        console.log(campaignData);
-
-        setIsModalOpen(true);
-    };
-
     return (
         <div className="space-y-4">
             <PageTitle size="sm" title="Create New Campaign" />
+
+            {message && (
+                <div className="w-full bg-red-200 text-maroon px-2 py-1 text-sm font-semibold rounded">
+                    {message}
+                </div>
+            )}
 
             <CampaignForm
                 campaignData={campaignData}
@@ -75,17 +59,16 @@ const CampaignCreate = () => {
                 enableDailyDigest={enableDailyDigest}
                 toggleDailyDigest={toggleDailyDigest}
                 formIntent="create"
-                submitHandler={submit}
-                cancelHandler={cancel}
+                setMessage={setMessage}
+                setIsModalOpen={setIsModalOpen}
             />
 
             <Modal isOpen={isModalOpen}>
                 <div className="overflow-y-auto w-full max-w-[550px] py-14 rounded-lg shadow-md bg-white z-50">
                     <div className="w-full">
-                        {/* <CampaignResponse message={`Campaign Successfully Created!`} /> */}
-                        <ConfirmCampaignDelete
+                        <CampaignResponse
+                            message={message}
                             setIsModalOpen={setIsModalOpen}
-                            campaign={`Campaign`}
                         />
                     </div>
                 </div>
