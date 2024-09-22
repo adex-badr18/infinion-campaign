@@ -8,7 +8,6 @@ import { ISOTodate } from "../../utils/date";
 
 export const loader = async () => {
     const campaignsResponse = await getCampaigns();
-    console.log(campaignsResponse)
 
     if (campaignsResponse.message || campaignsResponse.status) {
         return campaignsResponse;
@@ -33,7 +32,6 @@ const Campaigns = () => {
 
     const data = useLoaderData();
     const [tableData, setTableData] = useState(data.status ? {} : data);
-    console.log(data)
 
     return data.message || data.status ? (
         <FetchError error={data} />
