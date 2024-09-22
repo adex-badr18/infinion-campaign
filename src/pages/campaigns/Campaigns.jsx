@@ -8,17 +8,18 @@ import { ISOTodate } from "../../utils/date";
 
 export const loader = async () => {
     const campaignsResponse = await getCampaigns();
+    console.log(campaignsResponse)
 
-    if (!campaignsResponse.status) {
-        const formattedDataDates = campaignsResponse.map((dataItem) => ({
-            ...dataItem,
-            startDate: ISOTodate(dataItem.startDate),
-            endDate: ISOTodate(dataItem.endDate),
-        }));
-        return formattedDataDates;
+    if (campaignsResponse.message || campaignsResponse.status) {
+        return campaignsResponse;
     }
-
-    return campaignsResponse;
+    
+    const formattedDataDates = campaignsResponse.map((dataItem) => ({
+        ...dataItem,
+        startDate: ISOTodate(dataItem.startDate),
+        endDate: ISOTodate(dataItem.endDate),
+    }));
+    return formattedDataDates;
 };
 
 const Campaigns = () => {
@@ -32,8 +33,9 @@ const Campaigns = () => {
 
     const data = useLoaderData();
     const [tableData, setTableData] = useState(data.status ? {} : data);
+    console.log(data)
 
-    return data.status ? (
+    return data.message || data.status ? (
         <FetchError error={data} />
     ) : (
         <div className="">

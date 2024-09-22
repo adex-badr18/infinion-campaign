@@ -13,19 +13,19 @@ import { ISOTodate, formatDateToYYYYMMDD } from "../../../utils/date";
 export const loader = async ({ params }) => {
     const campaignResponse = await getCampaign(params.id);
 
-    if (!campaignResponse.status) {
-        const formattedDataDates = {
-            ...campaignResponse,
-            id: params.id,
-            startDate: formatDateToYYYYMMDD(
-                ISOTodate(campaignResponse.startDate)
-            ),
-            endDate: formatDateToYYYYMMDD(ISOTodate(campaignResponse.endDate)),
-        };
-        return formattedDataDates;
+    if (campaignResponse.message || campaignResponse.status) {
+        return campaignResponse;
     }
-
-    return campaignResponse;
+    
+    const formattedDataDates = {
+        ...campaignResponse,
+        id: params.id,
+        startDate: formatDateToYYYYMMDD(
+            ISOTodate(campaignResponse.startDate)
+        ),
+        endDate: formatDateToYYYYMMDD(ISOTodate(campaignResponse.endDate)),
+    };
+    return formattedDataDates;
 };
 
 const CampaignEdit = () => {
@@ -46,7 +46,7 @@ const CampaignEdit = () => {
         }));
     };
 
-    return data.status ? (
+    return data.message || data.status ? (
         <FetchError error={data} />
     ) : (
         <div className="space-y-4">

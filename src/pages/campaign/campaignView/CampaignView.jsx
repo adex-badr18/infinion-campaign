@@ -16,17 +16,17 @@ import FetchError from "../../../components/FetchError";
 export const loader = async ({ params }) => {
     const campaignResponse = await getCampaign(params.id);
 
-    if (!campaignResponse.status) {
-        const formattedDataDates = {
-            ...campaignResponse,
-            id: params.id,
-            startDate: ISOTodate(campaignResponse.startDate),
-            endDate: ISOTodate(campaignResponse.endDate),
-        };
-        return formattedDataDates;
+    if (campaignResponse.message || campaignResponse.status) {
+        return campaignResponse;
     }
-
-    return campaignResponse;
+    
+    const formattedDataDates = {
+        ...campaignResponse,
+        id: params.id,
+        startDate: ISOTodate(campaignResponse.startDate),
+        endDate: ISOTodate(campaignResponse.endDate),
+    };
+    return formattedDataDates;
 };
 
 const CampaignView = () => {
@@ -40,7 +40,7 @@ const CampaignView = () => {
         setIsModalOpen(true);
     };
 
-    return campaignData.status ? (
+    return campaignData.message || campaignData.status ? (
         <FetchError error={campaignData} />
     ) : (
         <div className="space-y-4">
